@@ -1,3 +1,9 @@
+Advanced Offshore Streaming 2019
+Created for a requirement to have decode realtime h265 nal streams. 
+
+
+
+From the original developers : 
 # libde265.js
 
 Pure JavaScript HEVC/H.265 video decoding library using libde265.
