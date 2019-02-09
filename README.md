@@ -1,100 +1,32 @@
 Advanced Offshore Streaming 2019
 Created for a requirement to have decode realtime h265 nal streams. 
 
-Live streaming can now be acheived by pushing data directly into the decoder after calling 	player.startStreamingDecoder(decoder);
+## Update 9/Feb/2019 - 
+	Conversion from YUV422 to RGB added
+	Live streaming functions added
 
 
+## Live streaming :
 
-## Live streaming example :
-'''
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='utf-8'>
-<title>H265 Live Player</title>
-<body>
- <h1>libde265.js</h1>
-<div>
-    <button id="play" onClick="JavaScript:playback()">Play</button> <span id="status"></span>
-	</div>
+# Include the script
+<script type="text/javascript" src="libde265.js"></script>
 
-		<canvas id="video" width="640" height="480"></canvas>
-		</div>
+# Create a canvas for the video output
+<canvas id="video" width="640" height="480"></canvas>
 
-		<script src="assets/plugins/jquery/jquery-3.3.1.min.js"></script>
-		<script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="assets/Player/libde265.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
-		<script src="/assets/Player/Canvas/YUVCanvas.js"></script>
+# Create the video player object : 
+var video = document.getElementById("video");
+var status = document.getElementById("status");
+player = new libde265.RawPlayer(video);
 
-<script>
-	<!--
-		// Socket IO
-		var socket= io();
+# Pass an empty decoder object to the player
+var decoder={};
+player.startStreamingDecoder(decoder);
 
-		var decoder={};
-		var video;
-		var status;
-		var player = null;
+# Push data directy into the decoder instance as required
+var data= new Uint8Array(data);
+decoder.decoder.push_data(data);
 
-		$(document).ready(function() {
-
-		// Give the canvas to the video player (decoder)
-		var video = document.getElementById("video");
-		var status = document.getElementById("status");
-
-		player = new libde265.RawPlayer(video,null);
-
-
-		player.set_status_callback(function(msg, fps) {
-			switch (msg) {
-					case "loading":
-							status.innerHTML = "Loading movie...";
-							break;
-					case "initializing":
-							status.innerHTML = "Initializing...";
-							break;
-					case "playing":
-							status.innerHTML = "Playing...";
-							break;
-					case "stopped":
-							status.innerHTML = "";
-							break;
-					case "fps":
-							status.innerHTML = Number(fps).toFixed(2) + " fps";
-							break;
-					default:
-							status.innerHTML = msg;
-				}
-
-		});
-
-		// get a new Decoder
-
-		player.startStreamingDecoder(decoder);
-		});
-
-		var running=false;
-		function playback(){
-			if (running==false){
-			socket.emit('f',{function:'getStream',feed:'1'})
-			running=true;
-		}
-		else running=false;
-		}
-			//on socket.io connection success
-		socket.on('stream', function (data) {
-
-		if(running==true){
-			var data= new Uint8Array(data);
-			decoder.decoder.push_data(data);
-		}
-		});
--->
-</script>
-</body>
-</html>
-'''
 
 From the original developers : 
 # libde265.js
