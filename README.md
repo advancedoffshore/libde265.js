@@ -8,28 +8,28 @@ Created for a requirement to have decode realtime h265 nal streams.
 
 ## Live streaming :
 
-# Include the script
+### Include the script
 <script type="text/javascript" src="libde265.js"></script>
 
-# Create a canvas for the video output
+### Create a canvas for the video output
 <canvas id="video" width="640" height="480"></canvas>
 
-# Create the video player object : 
+### Create the video player object : 
 var video = document.getElementById("video");
 var status = document.getElementById("status");
 player = new libde265.RawPlayer(video);
 
-# Pass an empty decoder object to the player
+### Pass an empty decoder object to the player
 var decoder={};
 player.startStreamingDecoder(decoder);
 
-# Push data directy into the decoder instance as required
+### Push data directy into the decoder instance as required
 var data= new Uint8Array(data);
 decoder.decoder.push_data(data);
 
 
 From the original developers : 
-# libde265.js
+### libde265.js
 
 Pure JavaScript HEVC/H.265 video decoding library using libde265.
 
