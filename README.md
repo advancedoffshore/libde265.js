@@ -4,8 +4,9 @@ Created for a requirement to have decode realtime h265 nal streams.
 ## Update 9/Feb/2019 - 
 	Conversion from YUV422 to RGB added
 	Live streaming functions added
-
-
+	
+	
+```	
 ## Live streaming :
 
 ### Include the script
@@ -26,6 +27,8 @@ player.startStreamingDecoder(decoder);
 ### Push data directy into the decoder instance as required
 var data= new Uint8Array(data);
 decoder.decoder.push_data(data);
+```
+
 
 
 From the original developers : 
